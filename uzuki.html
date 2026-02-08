@@ -315,6 +315,16 @@
 </div>
 
 <script>
+    // 1. 現在のテーマカラーをCSS変数から取得する関数
+    // これにより、CSSの --current-type を変えるだけでチャートの色も変わります
+    const getThemeColor = () => {
+        return getComputedStyle(document.documentElement).getPropertyValue('--current-type').trim();
+    };
+
+    const themeColor = getThemeColor();
+    const chartFillColor = themeColor + '33'; // 16進数に透明度(20%)を追加
+
+    // 2. 共通のチャート設定
     const chartOptions = {
         scales: {
             r: {
@@ -325,42 +335,57 @@
                     stepSize: 5,
                     display: true,
                     backdropColor: 'transparent',
-                    color: '#666'
+                    color: '#666',
+                    font: { size: 10 }
                 },
                 grid: { color: '#333' },
                 angleLines: { color: '#333' },
-                pointLabels: { color: '#fff', font: { size: 12 } }
+                pointLabels: { 
+                    color: '#fff', 
+                    font: { size: 12, weight: 'bold' } 
+                }
             }
         },
-        plugins: { legend: { display: false } },
-        responsive: true
+        plugins: { 
+            legend: { display: false } 
+        },
+        responsive: true,
+        maintainAspectRatio: true
     };
 
+    // 3. 基礎能力チャートの生成
     new Chart(document.getElementById('basicStatsChart'), {
         type: 'radar',
         data: {
             labels: ['筋力', '体力', '根性', '技術', '速さ'],
             datasets: [{
-                data: [12, 10, 15, 6, 8],
-                backgroundColor: 'rgba(255, 170, 0, 0.2)',
-                borderColor: '#ffaa00',
-                borderWidth: 2,
-                pointBackgroundColor: '#ffaa00'
+                data: [12, 10, 15, 6, 8], // 実際の数値
+                backgroundColor: chartFillColor,
+                borderColor: themeColor,
+                borderWidth: 3,
+                pointBackgroundColor: themeColor,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: themeColor
             }]
         },
         options: chartOptions
     });
 
+    // 4. 適性チャートの生成
     new Chart(document.getElementById('aptitudeChart'), {
         type: 'radar',
         data: {
             labels: ['パワー', '打撃', '投げ', '飛び', '関節'],
             datasets: [{
-                data: [13, 7, 10, 5, 10],
-                backgroundColor: 'rgba(255, 170, 0, 0.2)',
-                borderColor: '#ffaa00',
-                borderWidth: 2,
-                pointBackgroundColor: '#ffaa00'
+                data: [13, 7, 10, 5, 10], // 実際の数値
+                backgroundColor: chartFillColor,
+                borderColor: themeColor,
+                borderWidth: 3,
+                pointBackgroundColor: themeColor,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: themeColor
             }]
         },
         options: chartOptions
@@ -370,4 +395,5 @@
 </body>
 
 </html>
+
 
