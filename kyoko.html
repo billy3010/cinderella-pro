@@ -306,17 +306,36 @@
 タッグマッチやユニットマッチでも献身的なサポートを行い、卯月・美穂と組むピンクチェックスクールの原動力でもある。
             </p>
         </section>
-    </div>
-<div style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
-    <a href="index.html" 
-       style="display: inline-block; padding: 12px 30px; background-color: #ff6699; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 0 4px 0 #cc3366; transition: 0.2s;">
+       <div style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
+       <a href="index.html" 
+       style="display: inline-block; padding: 12px 30px; background-color: #ff6699; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px; box-    shadow: 0 4px 0 #cc3366; transition: 0.2s;">
         ≪ BACK TO RING (HOME)
     </a>
 </div>
     </div>
 </div>
 
-
+<script>
+    const chartOptions = {
+        scales: {
+            r: {
+                min: 0,
+                max: 20,
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 5,
+                    display: true,
+                    backdropColor: 'transparent',
+                    color: '#666'
+                },
+                grid: { color: '#333' },
+                angleLines: { color: '#333' },
+                pointLabels: { color: '#fff', font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { display: false } },
+        responsive: true
+    };
 
     new Chart(document.getElementById('basicStatsChart'), {
         type: 'radar',
@@ -350,7 +369,4 @@
 </script>
 
 </body>
-
 </html>
-
-
