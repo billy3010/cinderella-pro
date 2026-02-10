@@ -40,7 +40,6 @@
             border-radius: 4px;
         }
 
-        /* ①タイトル：文字を白に */
         header {
             border-bottom: 1px solid #333;
             margin-bottom: 30px;
@@ -52,10 +51,10 @@
             font-weight: 900;
             font-style: italic;
             letter-spacing: 4px;
-            color: #ffffff; /* ホワイトに変更 */
+            color: #ffffff;
             margin: 0;
             line-height: 1;
-            text-shadow: 2px 2px 0px var(--current-type); /* わずかにアクセントを追加 */
+            text-shadow: 2px 2px 0px var(--current-type);
         }
 
         /* レイアウト：上部 */
@@ -66,36 +65,34 @@
             margin-bottom: 40px;
         }
 
-      /* キャラクターイメージ（縦5:横3） */
-.char-image-container {
-    width: 100%;
-    aspect-ratio: 3 / 5;
-    background: #2a2a2a;
-    border: 1px solid #333;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        /* ★改良：キャラクターイメージコンテナ（CSS変数対応） */
+        .char-image-container {
+            width: 100%;
+            aspect-ratio: 3 / 5;
+            background-color: #2a2a2a;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            
+            /* 背景画像の設定 */
+            background-image: var(--bg-img);
+            background-size: cover;
+            background-position: center top;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        }
 
-        /* 画像自体の設定：枠いっぱいに広がり、比率を保ってクロップする */
-.char-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* これを入れることで、画像が伸びずに綺麗に収まります */
-    object-position: center top; /* 顔が隠れないよう、上部を優先して表示 */
-    z-index: 1;
-}
+        /* 画像がない場合のプレースホルダー表示 */
+        .char-image-container::after {
+            content: 'PHOTO AREA';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #444;
+            font-weight: bold;
+            z-index: 0;
+        }
 
-/* 画像がない時だけ文字を出す設定 */
-.char-image-container:not(:has(img))::after {
-    content: 'PHOTO AREA';
-    color: #444;
-    font-weight: bold;
-}
-
-        /* ②プロフィール詳細（縦並び・左右振り分け） */
         .profile-info {
             display: flex;
             flex-direction: column;
@@ -137,18 +134,17 @@
             line-height: 1.5;
         }
 
-        /* 項目を縦並びに。ラベル左・数値右 */
         .stats-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
             width: 100%;
-            max-width: 320px; /* 広がりすぎないよう調整 */
+            max-width: 320px;
         }
 
         .stats-item {
             display: flex;
-            justify-content: space-between; /* 左右に寄せる */
+            justify-content: space-between;
             align-items: baseline;
             border-bottom: 1px solid #333;
             padding-bottom: 4px;
@@ -165,10 +161,9 @@
             font-size: 1.2rem;
             font-weight: 600;
             color: #fff;
-            font-family: 'Oswald', sans-serif; /* 数値が綺麗に見えるフォント推奨 */
+            font-family: 'Oswald', sans-serif;
         }
 
-        /* ③レーダーチャート */
         .charts-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -191,7 +186,6 @@
             letter-spacing: 2px;
         }
 
-        /* ④得意技 / ⑤紹介 */
         .description-section {
             display: grid;
             gap: 30px;
@@ -246,9 +240,8 @@
     </header>
 
     <div class="profile-upper">
-        <div class="char-image-container">
-           <img src="seika.png" class="char-image" alt="涼宮星花">
-            </div>
+        <div class="char-image-container" style="--bg-img: url('img/seika.jpg');">
+        </div>
 
         <div class="profile-info">
             <p class="affiliation">CUTE</p>
@@ -295,39 +288,33 @@
             <ul class="move-list">
                 <li class="move-item">エラン・ド・フルーレ</li>
                 <li class="move-item">ピチカート・アームロック</li>
-<li class="move-item">アパッショナート・ラッシュ（プロミス・ケージ）
-</li>
+                <li class="move-item">アパッショナート・ラッシュ</li>
             </ul>
         </section>
 
         <section>
             <h3>選手紹介 / PROFILE</h3>
             <p class="bio-text">
-                バイオリンの旋律を奏でるような繊細な技術と、フェンシング仕込みの鋭い踏み込みを併せ持つ技巧派。自分に有利な間合いを保ちながら、相手の攻撃を受け流し反撃に転じる。お嬢様らしい気品を保ちつつも、勝利への一突きを決める瞬間は勝負師としての顔を見せる。時々Rêve Purの助太刀に現れる。
-
+                バイオリンの旋律を奏でるような繊細な技術と、フェンシング仕込みの鋭い踏み込みを併せ持つ技巧派。自分に有利な間合いを保ちながら、相手の攻撃を受け流し反撃に転じる。お嬢様らしい気品を保ちつつも、勝利への一突きを決める瞬間は勝負師としての顔を見せる。
             </p>
-                </section>
+        </section>
     </div>
-<div style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
-    <a href="roster.html" 
-       style="display: inline-block; padding: 12px 30px; background-color: #ff6699; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 0 4px 0 #cc3366; transition: 0.2s;">
-        ≪ BACK TO ROSTER
-    </a>
-</div>
+    <div style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
+        <a href="roster.html" 
+           style="display: inline-block; padding: 12px 30px; background-color: #ff6699; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 0 4px 0 #cc3366; transition: 0.2s;">
+            ≪ BACK TO ROSTER
+        </a>
     </div>
 </div>
 
 <script>
-    // 1. 現在のテーマカラーをCSS変数から取得する関数
-    // これにより、CSSの --current-type を変えるだけでチャートの色も変わります
     const getThemeColor = () => {
         return getComputedStyle(document.documentElement).getPropertyValue('--current-type').trim();
     };
 
     const themeColor = getThemeColor();
-    const chartFillColor = themeColor + '33'; // 16進数に透明度(20%)を追加
+    const chartFillColor = themeColor + '33';
 
-    // 2. 共通のチャート設定
     const chartOptions = {
         scales: {
             r: {
@@ -356,13 +343,12 @@
         maintainAspectRatio: true
     };
 
-    // 3. 基礎能力チャートの生成
     new Chart(document.getElementById('basicStatsChart'), {
         type: 'radar',
         data: {
             labels: ['筋力', '体力', '根性', '技術', '速さ'],
             datasets: [{
-                data: [8, 8, 8, 13, 10], // 実際の数値
+                data: [8, 8, 8, 13, 10],
                 backgroundColor: chartFillColor,
                 borderColor: themeColor,
                 borderWidth: 3,
@@ -375,13 +361,12 @@
         options: chartOptions
     });
 
-    // 4. 適性チャートの生成
     new Chart(document.getElementById('aptitudeChart'), {
         type: 'radar',
         data: {
             labels: ['パワー', '打撃', '投げ', '飛び', '関節'],
             datasets: [{
-                data: [7, 13, 8, 9, 12], // 実際の数値
+                data: [7, 13, 8, 9, 12],
                 backgroundColor: chartFillColor,
                 borderColor: themeColor,
                 borderWidth: 3,
@@ -396,10 +381,7 @@
 </script>
 
 </body>
-
 </html>
-
-
 
 
 
