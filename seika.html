@@ -65,11 +65,10 @@
             margin-bottom: 40px;
         }
 
-        /* ★改良：キャラクターイメージコンテナ（CSS変数対応） */
+        /* キャラクターイメージコンテナ（縦5:横3） */
         .char-image-container {
             width: 100%;
             aspect-ratio: 3 / 5;
-            background-color: #2a2a2a;
             border: 1px solid #333;
             position: relative;
             overflow: hidden;
@@ -78,19 +77,31 @@
             background-image: var(--bg-img);
             background-size: cover;
             background-position: center top;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            
+            /* 重ね順の基準を作成 */
+            z-index: 1;
         }
 
-        /* 画像がない場合のプレースホルダー表示 */
+        /* PHOTO AREAの文字を画像の後ろ（z-index: -1）に配置する */
         .char-image-container::after {
             content: 'PHOTO AREA';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* 背景色と文字の設定 */
+            background-color: #2a2a2a; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #444;
             font-weight: bold;
-            z-index: 0;
+            letter-spacing: 2px;
+            
+            /* 画像より後ろに配置することで、画像がある時は隠れる */
+            z-index: -1; 
         }
 
         .profile-info {
@@ -382,8 +393,3 @@
 
 </body>
 </html>
-
-
-
-
-
