@@ -159,6 +159,27 @@
             .title { font-size: 2.5rem; }
             .event-grid { grid-template-columns: 1fr; }
         }
+
+/* --- サンプル画像を並べるためのコンテナ --- */
+.sample-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2列に並べる */
+    gap: 15px;                      /* 画像間の隙間 */
+    margin-top: 20px;
+}
+
+/* 既存の .match-sample-image の margin-top を 0 に上書き（コンテナで制御するため） */
+.match-sample-image {
+    margin-top: 0 !important;
+}
+
+/* スマホ表示では1列にする */
+@media (max-width: 480px) {
+    .sample-images-container {
+        grid-template-columns: 1fr;
+    }
+}
+
     </style>
 </head>
 <body>
