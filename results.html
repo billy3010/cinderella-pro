@@ -42,14 +42,13 @@
             text-transform: uppercase;
         }
 
-        /* --- 大会リストのグリッド --- */
+        /* 大会リストのグリッド（これ1つの中にカードを並べます） */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        /* 大会カード本体 */
         .event-card {
             background: var(--card-bg);
             border: 1px solid #333;
@@ -59,6 +58,8 @@
             color: inherit;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .event-card:hover {
@@ -67,7 +68,6 @@
             box-shadow: 0 10px 30px rgba(38, 129, 200, 0.3);
         }
 
-        /* 大会バナー画像エリア */
         .event-banner {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -80,10 +80,11 @@
         }
 
         .event-banner::after {
-            content: 'EVENT IMAGE';
+            content: 'MATCH PHOTO';
             color: #444;
             font-family: 'Impact', sans-serif;
             font-size: 1.5rem;
+            z-index: 0;
         }
 
         .banner-img {
@@ -94,7 +95,6 @@
             z-index: 1;
         }
 
-        /* カード内のテキスト情報 */
         .event-details {
             padding: 20px;
         }
@@ -127,7 +127,6 @@
             font-size: 0.8rem;
         }
 
-        /* ステータスバッジ（NEWなど） */
         .badge {
             position: absolute;
             top: 10px;
@@ -141,7 +140,6 @@
             z-index: 10;
         }
 
-        /* 戻るボタン */
         .footer-nav {
             margin-top: 60px;
             text-align: right;
@@ -179,19 +177,25 @@
 
     <div class="event-grid">
         
-        <a href="results1.html" class="event-card">
+        <a href="results_princessriot.html" class="event-card">
             <span class="badge">NEW</span>
             <div class="event-banner">
-                <img src="img/gamesample1_0.jpg" alt="News Image">
                 </div>
+            <div class="event-details">
+                <span class="event-date">2026.03.08</span>
+                <div class="event-name">CINDERELLA GIRLS fes. "Princess Riot"</div>
+                <div class="event-venue">幕張メッセ</div>
+            </div>
+        </a>
+
+        <a href="results1.html" class="event-card">
+            <div class="event-banner">
+            </div>
             <div class="event-details">
                 <span class="event-date">2026.02.28</span>
                 <div class="event-name">Wrestle Groove -Love∞Destiny-</div>
                 <div class="event-venue">美城ホール</div>
-
             </div>
-        </a>
-
         </a>
 
     </div>
@@ -202,5 +206,4 @@
 </div>
 
 </body>
-
 </html>

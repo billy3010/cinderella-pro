@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATCH SELECTOR | WRESTLE M@STER</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent-blue: #2681c8;
+            --cute: #ff66aa;
+            --cool: #4477ff;
+            --passion: #ffaa00;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Impact', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .event-title {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-style: italic;
+            margin: 0;
+            text-transform: uppercase;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* --- 試合選択カードの構造 --- */
+        .match-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .match-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            height: 250px; /* PCでの高さ */
+            overflow: hidden;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .match-link:hover {
+            border-color: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+
+        /* 左右の選手画像エリア */
+        .wrestler-half {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .left-side { left: 0; border-right: 1px solid rgba(255,255,255,0.1); }
+        .right-side { right: 0; }
+
+        .wrestler-half img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; /* 上半分を優先 */
+            filter: grayscale(30%);
+            transition: 0.5s;
+        }
+
+        .match-link:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* 中央のVSマークと情報 */
+        .vs-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+        }
+
+        .match-rank {
+            background: rgba(255, 219, 77, 0.9); /* Gold */
+            color: #000;
+            padding: 2px 15px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            transform: skewX(-15deg);
+        }
+
+        .vs-text {
+            font-size: 4rem;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            -webkit-text-stroke: 1px #fff;
+            color: transparent;
+        }
+
+        .names-display {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .name-l { text-align: left; }
+        .name-r { text-align: right; }
+
+        /* 属性カラーのアクセント線 */
+        .border-cute { border-bottom: 5px solid var(--cute); }
+        .border-cool { border-bottom: 5px solid var(--cool); }
+        .border-passion { border-bottom: 5px solid var(--passion); }
+
+        .footer-nav {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .back-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .match-link { height: 180px; }
+            .vs-text { font-size: 2.5rem; }
+            .names-display { font-size: 1rem; padding: 0 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="event-title">CINDERELLA GIRLS fes. "Princess Riot"</div>
+        <h1 class="page-title">SELECT MATCH</h1>
+    </header>
+
+    <div class="match-selector">
+        
+        <a href="results2.html" class="match-link">
+            <div class="wrestler-half left-side">
+                <img src="img/mika.jpg" alt="mika">
+            </div>
+            <div class="wrestler-half right-side">
+                <img src="img/anastasia.jpg" alt="anastasia">
+            </div>
+            
+            <div class="vs-overlay">
+                <div class="match-rank">FINAL</div>
+                <div class="vs-text">VS</div>
+                <div class="names-display">
+                    <span class="name-l border-passion">城ヶ崎　美嘉</span>
+                    <span class="name-r border-cool">アナスタシア</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="results3.html" class="match-link">
+            <div class="wrestler-half left-side">
+                <img src="img/minami.png" alt="minami">
+            </div>
+            <div class="wrestler-half right-side">
+                <img src="img/kanade.png" alt="kanade">
+            </div>
+            
+            <div class="vs-overlay">
+                <div class="match-rank">SEMI-FINAL</div>
+                <div class="vs-text">VS</div>
+                <div class="names-display">
+                    <span class="name-l border-cool">新田　美波</span>
+                    <span class="name-r border-cool">速水　奏</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="footer-nav">
+        <a href="results.html" class="back-link">◀ BACK TO ARCHIVE</a>
+    </div>
+</div>
+
+</body>
+</html>

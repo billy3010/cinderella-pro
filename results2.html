@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATCH REPORT | WRESTLE M@STER</title>
+    <style>
+        :root {
+            --cute: #ff66aa;
+            --cool: #4477ff;
+            --passion: #ffaa00;
+            --gold: #ffdb4d; /* 共通アクセントカラー */
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-sub: #aaaaaa;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ヘッダーエリア */
+        header {
+            background: linear-gradient(135deg, #333, #000);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 4px solid var(--cute); /* 勝利者の属性色(Cute) */
+        }
+
+        .event-name {
+            font-family: 'Impact', sans-serif;
+            font-size: 1.2rem;
+            color: var(--cute);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .result-title {
+            font-family: 'Impact', sans-serif;
+            font-size: 3rem;
+            font-style: italic;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* 試合結果サマリー */
+        .match-summary {
+            padding: 40px 20px;
+            text-align: center;
+            background: #1a1a1a;
+        }
+
+        .vs-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .wrestler-name {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .name-passion { color: var(--passion); }
+        .name-cool { color: var(--cool); }
+        .name-cute { color: var(--cute); }
+
+        .vs-badge {
+            font-family: 'Impact', sans-serif;
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        .finish-hold {
+            font-size: 1.2rem;
+            color: #fff;
+            background: #333;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        /* フォトギャラリー（枠を隙間なく埋める仕様） */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px;
+            background: #000;
+        }
+
+        .photo-item {
+            aspect-ratio: 1 / 1;
+            background: #252525;
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in; /* 拡大できることを示す */
+        }
+
+        /* ★ここをppv01.htmlと同じ「絶対配置+cover」に変更 */
+        .photo-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; 
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .photo-item img:hover {
+            filter: brightness(1.2);
+        }
+
+        .photo-item::after {
+            content: 'MATCH PHOTO';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #444;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        /* マッチレポート本文 */
+        .report-section {
+            padding: 40px;
+            line-height: 1.8;
+        }
+
+        .report-section h3 {
+            border-left: 4px solid var(--cute);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .report-text {
+            color: var(--text-sub);
+            font-size: 1rem;
+            white-space: pre-wrap;
+        }
+
+        /* 拡大画像表示用のモーダル（ppv01.htmlと共通） */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: zoom-out;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--gold); /* 共通アクセントのゴールド枠 */
+            box-shadow: 0 0 30px rgba(255, 219, 77, 0.3);
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 戻るナビゲーション */
+        .footer-nav {
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .back-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-link:hover { color: #fff; }
+
+        @media (max-width: 600px) {
+            .vs-container { flex-direction: column; gap: 10px; }
+            .photo-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="event-name">Princess Riot</div>
+        <h1 class="result-title">MATCH REPORT</h1>
+    </header>
+
+    <div class="match-summary">
+        <div class="vs-container">
+            <div class="wrestler-name name-passion">城ヶ崎　美嘉 <span style="font-size: 1rem; color:#fff;">[○]</span></div>
+            <div class="vs-badge">VS</div>
+            <div class="wrestler-name name-cool">アナスタシア <span style="font-size: 1rem; color:#fff;">[●]</span></div>
+        </div>
+        <div class="finish-hold">37分29秒　サゴリ固め→ギブアップ</div>
+    </div>
+
+    <div class="photo-gallery">
+        <div class="photo-item"><img src="img/gamesample2_1.jpg" alt="Photo 1"></div>
+        <div class="photo-item"><img src="img/gamesample2_2.jpg" alt="Photo 2"></div>
+        <div class="photo-item"><img src="img/gamesample2_3.jpg" alt="Photo 3"></div>
+    </div>
+
+    <section class="report-section">
+        <h3>カリスマヒールの壁</h3>
+        <div class="report-text">
+セミファイナルで346プロレスが誇るカリスマと銀色の妖精が激突。
+カリスマヒール・城ヶ崎美嘉が、宿命のライバル・新田美波のパートナーであるアナスタシアをどう料理するのか。
+美しき二人の闘いは、開始前から殺伐とした空気に包まれていた。
+
+ゴングが鳴るや否や、アナスタシアがその長い四肢を活かした鋭い打撃を叩き込んでいく。
+鋭いミドルキックが美嘉の脇腹を捉え、鈍い音が会場に響く。
+リーチの差に苦しむかと思われた美嘉だったが、その表情には不敵な笑みが浮かんでいた。
+あえてアナスタシアの攻撃を受け、観客の期待を煽る――これぞカリスマヒールの「余裕」と「計算」だ。
+
+試合が中盤に差し掛かった瞬間、美嘉の空気が一変した。
+経験の浅いアナスタシアの隙を突き、ラフなエルボーで怯ませると、電光石火の裏拳を炸裂させる。
+マットに沈んだアナスタシア。
+その薄い腹筋を目掛け、美嘉は無慈悲なフットスタンプを浴びせた。
+肺の空気をすべて吐き出させるような一撃に、アナスタシアの顔が苦痛に歪む。
+
+ここから美嘉の独壇場が始まる。
+リーチを無効化する地上戦に持ち込むと、地獄の関節技メドレーへ引きずり込む。
+逃れようとするアナスタシアの右脚を捕らえ、渾身のアキレス腱固め。
+これでアナスタシアの武器である蹴り技を封じ、逃げ道を完全に塞いでいく。
+
+悲鳴を上げるアナスタシアに対し、美嘉は仕上げのスコーピオン・デスロックを敢行。
+ブリッジを効かせ、アナスタシアの腰を限界まで反らせる。
+美しい銀髪を乱し、涙を浮かべてマットを叩こうとするアナスタシア。
+しかし、そのたびに美嘉が力を込め阻止し、極限まで追い詰めていく。
+その執拗な絞り上げに、ついに若き妖精は敗北の意思を示す降伏宣言を叫んだ。
+
+決着がつき、美嘉は大の字で動けないアナスタシアの胸元を踏みにじる。
+次にこうなるのは美波ちゃんだから、覚悟してよねと宣言し、リングを後にした。
+
+</div>
+    </section>
+
+    <div class="footer-nav">
+        <a href="index.html" class="back-link">≪ BACK TO INDEX</a>
+    </div>
+</div>
+
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="fullImage">
+</div>
+
+<script>
+    const modal = document.getElementById("imageModal");
+    const fullImg = document.getElementById("fullImage");
+    const closeBtn = document.querySelector(".modal-close");
+
+    // 全ての試合写真をクリックで拡大
+    document.querySelectorAll(".photo-item img").forEach(img => {
+        img.onclick = function() {
+            modal.style.display = "block";
+            fullImg.src = this.src;
+        }
+    });
+
+    // 閉じる処理
+    const closeModal = () => { modal.style.display = "none"; };
+    closeBtn.onclick = closeModal;
+    modal.onclick = (e) => { if(e.target !== fullImg) closeModal(); };
+</script>
+
+</body>
+</html>

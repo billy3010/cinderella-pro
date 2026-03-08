@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXT EVENT  | WRESTLE M@STER</title>
+    <title>NEXT EVENT | WRESTLE M@STER</title>
     <style>
         :root {
             --bg-dark: #121212;
@@ -42,7 +42,7 @@
             text-transform: uppercase;
         }
 
-        /* --- 大会リストのグリッド --- */
+        /* --- 大会リストのグリッド（枠組みはこれ1つだけ！） --- */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -59,6 +59,8 @@
             color: inherit;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .event-card:hover {
@@ -79,11 +81,14 @@
             position: relative;
         }
 
+        /* 背景に文字を表示（画像がない時用） */
         .event-banner::after {
             content: 'EVENT IMAGE';
             color: #444;
             font-family: 'Impact', sans-serif;
             font-size: 1.5rem;
+            position: absolute;
+            z-index: 0;
         }
 
         .banner-img {
@@ -94,7 +99,6 @@
             z-index: 1;
         }
 
-        /* カード内のテキスト情報 */
         .event-details {
             padding: 20px;
         }
@@ -127,7 +131,6 @@
             font-size: 0.8rem;
         }
 
-        /* ステータスバッジ（NEWなど） */
         .badge {
             position: absolute;
             top: 10px;
@@ -141,7 +144,6 @@
             z-index: 10;
         }
 
-        /* 戻るボタン */
         .footer-nav {
             margin-top: 60px;
             text-align: right;
@@ -177,7 +179,7 @@
         <h1 class="title">NEXT EVENT</h1>
     </header>
 
- <div class="event-grid">
+    <div class="event-grid">
         
         <a href="schedule_princessriot.html" class="event-card">
             <span class="badge">NEW</span>
@@ -185,25 +187,19 @@
                 </div>
             <div class="event-details">
                 <span class="event-date">2026.XX.XX</span>
-                <div class="event-name">CINDERELLA GIRLS fes. -Princess Riot-</div>
+                <div class="event-name">CINDERELLA GIRLS fes. "Princess Riot"</div>
                 <div class="event-venue">幕張メッセ</div>
-
             </div>
         </a>
 
-    <div class="event-grid">
-        
         <a href="schedule_wrestlegroove01.html" class="event-card">
             <div class="event-banner">
-                </div>
+            </div>
             <div class="event-details">
                 <span class="event-date">2026.XX.XX</span>
-                <div class="event-name">Wrestle Groove -Love∞Destiny</div>
+                <div class="event-name">Wrestle Groove -Love∞Destiny-</div>
                 <div class="event-venue">美城ホール</div>
-
             </div>
-        </a>
-
         </a>
 
     </div>
@@ -214,6 +210,4 @@
 </div>
 
 </body>
-
 </html>
-
